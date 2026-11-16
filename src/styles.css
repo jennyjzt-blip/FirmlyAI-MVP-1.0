@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { @apply m-0 bg-slate-50 font-sans text-slate-800 antialiased; }
+  h1 { @apply mb-3 text-3xl font-bold tracking-tight sm:text-4xl; }
+  h2 { @apply mb-4 text-xl font-semibold; }
+  p { @apply leading-relaxed; }
+  input, textarea, select { @apply mt-2 w-full rounded-lg border border-slate-300 bg-white p-3 text-sm font-normal text-slate-800; }
+  textarea { @apply min-h-28; }
+  label { @apply block text-sm font-semibold; }
+  a, button, input, textarea, select { @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2; }
+}
+@layer components {
+  .card { @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-sm; }
+  .btn { @apply inline-flex items-center justify-center rounded-lg bg-blue-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-800 disabled:cursor-wait disabled:opacity-50; }
+  .secondary { @apply bg-slate-100 text-blue-950 hover:bg-slate-200; }
+  .link { @apply font-medium text-blue-800 underline-offset-4 hover:underline; }
+  .muted { @apply text-sm text-slate-500; }
+  .badge { @apply inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold tracking-wider text-blue-800; }
+  .notice { @apply rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900; }
+}

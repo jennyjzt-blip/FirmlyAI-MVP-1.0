@@ -1,5 +1,7 @@
 # Firmly AI — Integrated local development build (Mac)
 
+For the React 18 / Tailwind CSS 3 / Vite 5 website and GitHub Pages deployment, see [README.md](README.md). The instructions below apply to the original local Flask application.
+
 This build preserves the starter's Discover, Prepare, Apply and Monitor pages and adds
 PDF/DOCX resume text extraction and an optional OpenAI major-issue review.
 
