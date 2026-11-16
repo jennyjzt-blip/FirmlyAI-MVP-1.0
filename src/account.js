@@ -2,8 +2,10 @@ export function initialMaterials(profile = {}) {
   return {
     resumeText: profile.resumeText || '',
     resumeName: profile.resumeName || '',
+    resumeFileId: profile.resumeFileId || '',
     coverLetter: profile.coverLetter || '',
     coverLetterName: profile.coverLetterName || '',
+    coverLetterFileId: profile.coverLetterFileId || '',
     coverMode: profile.coverMode || (profile.coverLetter ? 'upload' : 'skip'),
   };
 }

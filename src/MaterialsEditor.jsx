@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { extractDocument } from './documents.js';
+import { storeFile } from './fileStore.js';
 import { finishMaterials, initialMaterials } from './account.js';
 
 export default function MaterialsEditor({ profile, onSave, onboarding = false, onBack }) {
@@ -15,7 +16,8 @@ export default function MaterialsEditor({ profile, onSave, onboarding = false, o
     setBusy(kind); setError('');
     try {
       const text = await extractDocument(file);
-      update(kind === 'resume' ? { resumeText: text, resumeName: file.name } : { coverLetter: text, coverLetterName: file.name });
+      const fileId = await storeFile(file);
+      update(kind === 'resume' ? { resumeText: text, resumeName: file.name, resumeFileId: fileId } : { coverLetter: text, coverLetterName: file.name, coverLetterFileId: fileId });
     } catch (err) { setError(err.message); }
     finally { pending.current = false; setBusy(''); event.target.value = ''; }
   }
