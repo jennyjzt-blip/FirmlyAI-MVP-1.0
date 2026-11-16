@@ -26,12 +26,14 @@ Vite uses relative asset paths, and navigation uses hash routes so direct links 
 - Dashboard and directory of the original ten law firms
 - Searchable, manually entered opportunities
 - Student profile and application status tracking
-- Cover letter outlines based on supplied profile facts
-- Manual resume review checklist
-- PDF/DOCX text extraction entirely in the browser (5 MB limit)
-- Recruiting source bookmarks with manual check timestamps
+- Mock account creation with a one-time resume setup
+- Optional master cover letter upload or a clearly labeled simulated AI draft based on resume text
+- PDF/DOCX extraction entirely in the browser (5 MB limit), with a paste-text alternative
+- Resume replacement and cover letter editing under My Profile
 
-Entries are stored in this browser's local storage. They do not sync between devices. Clearing site data removes entries. Uploaded documents and extracted resume text are held in memory, not persisted or uploaded. Do not put API keys in the React application or `VITE_*` variables: client assets are public.
+The signup is a browser-local demo, not authentication. No passwords are collected. Returning users on the same browser skip account setup. Monitor is hidden, and the former Prepare and Upload Resume links redirect to My Profile.
+
+Entries, mock account details, and extracted document text are stored in this browser's local storage. They do not sync between devices. Clearing site data removes entries. Original document files are not persisted or uploaded. Do not put API keys in the React application or `VITE_*` variables: client assets are public.
 
 GitHub Pages cannot run Python, SQLite, server-side AI requests, or scheduled recruiting collection. AI generation and automated monitoring need a separately hosted backend. The hosted UI labels its manual alternatives explicitly. No application submission is automated.
 

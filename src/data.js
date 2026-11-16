@@ -12,7 +12,7 @@ export const firms = [
 ].map(([name, website, practice]) => ({ name, website, practice }));
 
 export const statuses = ['Draft — not submitted', 'Preparing', 'Submitted — self-reported', 'Interview', 'Closed'];
-export const emptyData = { profile: {}, opportunities: [], applications: [], letters: [], sources: [] };
+export const emptyData = { account: null, profile: {}, opportunities: [], applications: [], letters: [], sources: [] };
 
 export function safeUrl(value) {
   try {
