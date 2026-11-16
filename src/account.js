@@ -24,6 +24,7 @@ export function finishMaterials(profile, materials) {
         ? materials.coverLetter : demoMasterLetter(profile, materials.resumeText)
       : materials.coverLetter,
     coverLetterName: materials.coverMode === 'ai' ? 'Master cover letter — demo draft' : materials.coverMode === 'skip' ? '' : materials.coverLetterName,
+    coverLetterFileId: materials.coverMode === 'upload' ? materials.coverLetterFileId || '' : '',
     materialsUpdatedAt: new Date().toISOString(),
   };
 }

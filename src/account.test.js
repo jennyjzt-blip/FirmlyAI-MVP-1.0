@@ -37,3 +37,9 @@ test('replacing resume refreshes mock draft with new facts', () => {
   assert.match(result.coverLetter, /Updated clinic work/);
   assert.doesNotMatch(result.coverLetter, /Old experience/);
 });
+
+test('switching to a demo letter clears the previous original-file association', () => {
+  const profile = { resumeText: 'Clinic experience', coverMode: 'upload', coverLetter: 'Uploaded letter', coverLetterFileId: 'old-file' };
+  const result = finishMaterials(profile, { ...initialMaterials(profile), coverMode: 'ai' });
+  assert.equal(result.coverLetterFileId, '');
+});
