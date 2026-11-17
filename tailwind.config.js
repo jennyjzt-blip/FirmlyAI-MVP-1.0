@@ -1,5 +1,5 @@
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
-  theme: { extend: { colors: { navy: '#111f3b' } } },
+  theme: { extend: { colors: { brandInk: '#431407' } } },
   plugins: [],
 };

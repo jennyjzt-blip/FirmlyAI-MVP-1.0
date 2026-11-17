@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { dateKey, monthDays, queueApplications, sampleOpportunities, tailorLetter, roleOf } from './workflow.js';
+import { dateKey, monthDays, queueApplications, sampleOpportunities, tailorLetter, roleOf, greatMatches, localOpportunities, previewInterview } from './workflow.js';
 
 test('bulk queue deduplicates positions and never claims a submission', () => {
   const original = [{ id: 'existing', opportunityId: sampleOpportunities[0].id, status: 'Submitted — self-reported' }];
@@ -41,4 +41,29 @@ test('tailored letter uses supplied networking context and saved master letter',
 test('both role types are available and legacy intern titles are recognized', () => {
   assert.equal(roleOf({ title: '2027 Legal Internship' }), 'Legal intern');
   assert.deepEqual(new Set(sampleOpportunities.map(roleOf)), new Set(['Legal intern', 'Summer associate']));
+});
+
+test('Great match responds to office and practice preferences and omits tracked jobs', () => {
+  const matches = greatMatches({ location: 'LA', practice: 'IP, contracts' }, localOpportunities);
+  assert.equal(matches[0].id, 'local-anum-intern');
+  assert.ok(matches[0].score > 0);
+  assert.match(matches[0].reasons.join(' '), /office/);
+  const employment = greatMatches({ location: 'Los Angeles', practice: 'Employment, litigation' }, localOpportunities);
+  assert.equal(employment[0].id, 'local-kingsiegel-sa');
+  assert.ok(!greatMatches({}, localOpportunities, [{ opportunityId: localOpportunities[0].id }]).some(item => item.id === localOpportunities[0].id));
+});
+
+test('empty profiles receive exploratory suggestions without invented match scores', () => {
+  const matches = greatMatches({}, localOpportunities);
+  assert.ok(matches.every(item => item.score === 0));
+  assert.match(matches[0].reasons[0], /preferences/);
+});
+
+test('calendar preview is visible in this month and never replaces real interviews', () => {
+  const now = new Date(2026, 10, 16);
+  const event = previewInterview(new Date(2026, 10, 1), [], now);
+  assert.equal(event.date, '2026-11-19');
+  assert.equal(event.sample, true);
+  assert.equal(previewInterview(new Date(2026, 10, 1), [{ type: 'Interview', date: '2026-11-20' }], now), null);
+  assert.equal(previewInterview(new Date(2026, 11, 1), [], now), null);
 });

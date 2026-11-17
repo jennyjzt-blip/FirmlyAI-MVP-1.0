@@ -9,6 +9,9 @@ export const firms = [
   ['Paul Weiss', 'https://www.paulweiss.com', 'Litigation, private equity'],
   ['Simpson Thacher', 'https://www.stblaw.com', 'Private equity, M&A'],
   ['Cravath', 'https://www.cravath.com', 'Corporate, litigation'],
+  ['Anum Law', 'https://www.anumlaw.com', 'Contracts, intellectual property, entertainment'],
+  ['Lovell Law Group', 'https://lovelllawgroup.com', 'Corporate, contracts, transactional'],
+  ['King & Siegel LLP', 'https://www.kingsiegel.com', 'Employment, litigation, civil rights'],
 ].map(([name, website, practice]) => ({ name, website, practice }));
 
 export const statuses = ['Draft — not submitted', 'Preparing', 'Submitted — self-reported', 'Interview', 'Closed'];
