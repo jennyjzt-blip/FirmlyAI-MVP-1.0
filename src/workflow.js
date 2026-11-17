@@ -70,6 +70,24 @@ export function previewInterview(month, events, now = new Date()) {
   return { id: 'preview-interview', type: 'Interview', date: dateKey(new Date(now.getFullYear(), now.getMonth(), Math.min(now.getDate() + 3, 28))), time: '10:30', firm: 'Example boutique firm', sample: true };
 }
 
+export function trackExamples(now = new Date()) {
+  return [
+    ['anum', 'Anum Law', 'Legal Intern', 'Los Angeles', 'Submitted — demo'],
+    ['king-siegel', 'King & Siegel LLP', 'Summer Associate', 'Los Angeles', 'Interview — demo'],
+    ['lovell', 'Lovell Law Group', 'Summer Associate', 'Remote · Los Angeles', 'Submitted — demo'],
+    ['latham', 'Latham & Watkins', 'Legal Intern', 'Los Angeles', 'Preparing — demo'],
+  ].map(([key, firm, position, office, status], index) => {
+    const date = new Date(now); date.setDate(date.getDate() - index - 1);
+    return { id: `track-example-${key}`, firm, position, office, status, sample: true, demoExample: true, createdAt: date.toISOString(), history: [{ at: date.toISOString(), text: 'Sample application for trying the calendar. No external application was submitted.' }] };
+  });
+}
+
+export function includeExample(existing, id, examples) {
+  if (existing.some(item => item.id === id)) return existing;
+  const example = examples.find(item => item.id === id);
+  return example ? [example, ...existing] : existing;
+}
+
 export function tailorLetter(profile, context) {
   const base = profile.coverLetter || `Dear Recruiting Committee,\n\nI am applying for [position] at [firm]${context.office ? ' in [office]' : ''}.${profile.school ? ` I am a student at ${profile.school}.` : ''}\n\n[Connect the following resume experience to the role.]\n${(profile.resumeText || '[Add your resume in Workshop.]').slice(0, 1600)}\n\nThank you for considering my application.\n\nSincerely,\n${profile.name || '[Your name]'}`;
   let letter = base.replaceAll('[firm]', context.firm || '[firm]').replaceAll('[position]', context.position || '[position]').replaceAll('[office]', context.office || '[office]');

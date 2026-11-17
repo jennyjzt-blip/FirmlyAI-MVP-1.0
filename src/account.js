@@ -23,7 +23,7 @@ export function finishMaterials(profile, materials) {
       ? profile.coverMode === 'ai' && profile.resumeText === materials.resumeText && materials.coverLetter.trim()
         ? materials.coverLetter : demoMasterLetter(profile, materials.resumeText)
       : materials.coverLetter,
-    coverLetterName: materials.coverMode === 'ai' ? 'Master cover letter — demo draft' : materials.coverMode === 'skip' ? '' : materials.coverLetterName,
+    coverLetterName: materials.coverMode === 'ai' ? 'Cover letter — demo draft' : materials.coverMode === 'skip' ? '' : materials.coverLetterName,
     coverLetterFileId: materials.coverMode === 'upload' ? materials.coverLetterFileId || '' : '',
     materialsUpdatedAt: new Date().toISOString(),
   };

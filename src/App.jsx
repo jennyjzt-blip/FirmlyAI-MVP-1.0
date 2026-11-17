@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { emptyData, firms } from './data.js';
+import { emptyData } from './data.js';
 import Workshop from './Workshop.jsx';
 import Discover from './Discover.jsx';
 import Track from './Track.jsx';
 import AccountSetup from './AccountSetup.jsx';
 import Profile from './Profile.jsx';
 import GreatMatch from './GreatMatch.jsx';
+import ApplicationTrend from './ApplicationTrend.jsx';
 
 const storageKey = 'firmly-ai-v1';
 const navigation = [['/', 'Dashboard'], ['/discover', 'Discover'], ['/track', 'Track'], ['/profile', 'My Profile'], ['/workshop', 'Workshop']];
@@ -71,18 +72,14 @@ export default function App() {
 
 function Dashboard({ data }) {
   return <>
-    <section className="mb-7 rounded-2xl bg-gradient-to-br from-brandInk to-orange-800 px-7 py-12 text-white sm:px-12 sm:py-16">
+    <section className="mb-7 rounded-2xl bg-gradient-to-br from-brandInk to-orange-800 px-7 py-8 text-white sm:px-10 sm:py-9">
       <span className="mb-5 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-orange-200">Your next chapter in law</span>
       <h1 className="max-w-2xl text-4xl sm:text-5xl sm:leading-tight">Applications,<br />with confidence.</h1>
       <p className="mb-7 mt-4 max-w-xl text-orange-100">Discover opportunities at firms of every size, prepare tailored materials, and manage every application in one place.</p>
       <a className="btn bg-white text-orange-950 hover:bg-orange-50" href={data.account?.onboardingComplete ? '#/discover' : '#/signup'}>{data.account?.onboardingComplete ? 'Explore opportunities →' : 'Create your account →'}</a>{!data.account?.onboardingComplete && <a className="ml-5 inline-block py-3 text-sm text-orange-100 underline-offset-4 hover:underline" href="#/discover">Explore firms first →</a>}
     </section>
     <GreatMatch data={data} />
-    <div className="mb-7 grid gap-5 md:grid-cols-3">{[
-      ['DISCOVER', `${firms.length} firms`, `${data.opportunities.length} opportunity records. Verify dates with each firm.`, '/discover', 'Explore firms'],
-      ['WORKSHOP', 'Make it personal', 'Save your resume and master letter. Tailor each application around your experience and connections.', '/workshop', 'Open Workshop'],
-      ['TRACK', `${data.applications.length} tracked`, 'Follow your application activity and schedule interviews and conversations on your calendar.', '/track', 'Open Track'],
-    ].map(([label, title, text, href, action]) => <article className="card flex flex-col items-start" key={label}><span className="badge mb-5">{label}</span><h2>{title}</h2><p className="muted mb-6 flex-1">{text}</p><a href={`#${href}`} className="link text-sm">{action} →</a></article>)}</div>
+    <ApplicationTrend />
     <div className="notice">This browser-based prototype stores your entries on this device. No live recruiting feed, automatic submissions, or AI service is connected. Existing local Flask records are separate.</div>
   </>;
 }

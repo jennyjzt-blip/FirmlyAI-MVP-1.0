@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { dateKey, monthDays, queueApplications, sampleOpportunities, tailorLetter, roleOf, greatMatches, localOpportunities, previewInterview } from './workflow.js';
+import { dateKey, monthDays, queueApplications, sampleOpportunities, tailorLetter, roleOf, greatMatches, localOpportunities, previewInterview, trackExamples, includeExample } from './workflow.js';
 
 test('bulk queue deduplicates positions and never claims a submission', () => {
   const original = [{ id: 'existing', opportunityId: sampleOpportunities[0].id, status: 'Submitted — self-reported' }];
@@ -66,4 +66,16 @@ test('calendar preview is visible in this month and never replaces real intervie
   assert.equal(event.sample, true);
   assert.equal(previewInterview(new Date(2026, 10, 1), [{ type: 'Interview', date: '2026-11-20' }], now), null);
   assert.equal(previewInterview(new Date(2026, 11, 1), [], now), null);
+});
+
+test('sample applications can be scheduled without duplicating or changing real records', () => {
+  const examples = trackExamples(new Date('2026-11-16T20:00:00Z'));
+  const existing = [{ id: 'real-record', status: 'Submitted — self-reported' }];
+  assert.equal(examples.length, 4);
+  assert.ok(examples.every(item => item.sample && item.demoExample));
+  const updated = includeExample(existing, examples[0].id, examples);
+  assert.equal(updated.length, 2);
+  assert.equal(updated[1], existing[0]);
+  assert.equal(includeExample(updated, examples[0].id, examples).length, 2);
+  assert.equal(includeExample(existing, 'unknown', examples), existing);
 });

@@ -1,0 +1,9 @@
+import { useState } from 'react';
+
+export default function NetworkingHistory({ entries, onSave, onUse }) {
+  const [saved, setSaved] = useState(false);
+  return <section className="mt-6 border-t border-orange-100 pt-5"><h3 className="mb-2 text-lg font-semibold">Your networking history</h3><p className="muted mb-4">Who did you talk to, and why do you want to apply to this law firm? Save the details to make your cover letter personal.</p>
+    <form className="space-y-4" onSubmit={event => { event.preventDefault(); onSave({ ...Object.fromEntries(new FormData(event.currentTarget)), id: crypto.randomUUID(), createdAt: new Date().toISOString() }); event.currentTarget.reset(); setSaved(true); }}><label>Law firm<input name="firm" required /></label><label>Who you talked to / their role<input name="contacts" placeholder="An associate, recruiter, or alumni connection" /></label><label>Networking event / date<input name="event" placeholder="Firm reception, coffee chat, or campus event" /></label><label>Why you want to apply / what you discussed<textarea name="why" required placeholder="What stood out, and how it connects to your interests…" /></label><button className="btn secondary">Save networking history</button>{saved && <p role="status" className="text-sm text-emerald-800">Networking history saved.</p>}</form>
+    {!!entries.length && <div className="mt-5 space-y-3">{entries.map(entry => <article className="rounded-xl border bg-orange-50/40 p-4" key={entry.id}><h4 className="font-semibold">{entry.firm}</h4><p className="muted">{[entry.contacts, entry.event].filter(Boolean).join(' · ')}</p><p className="mt-2 whitespace-pre-wrap text-sm text-stone-600">{entry.why}</p><button className="link mt-3 text-sm" onClick={() => onUse(entry)}>Use in cover letter →</button></article>)}</div>}
+  </section>;
+}

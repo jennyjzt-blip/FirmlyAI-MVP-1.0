@@ -23,8 +23,12 @@ Vite uses relative asset paths, and navigation uses hash routes so direct links 
 
 ## Hosted functionality
 
+- Dashboard application trend with a large mock total of 25 assisted applications; Great match suggestions remain above it
+- Track includes four clearly labeled draggable sample applications, plus persistent mock email/calendar connection settings (no OAuth, email access, or syncing)
+- Workshop stores networking history and can reuse a selected contact/event/motivation in the cover letter studio
+
 - Orange theme, a firm directory, and automatic Great match suggestions based on saved office/practice preferences and resume keywords
-- Searchable, manually entered opportunities
+- Searchable opportunities; the manual opportunity-entry form is removed
 - Student profile and application status tracking
 - Mock account creation with a one-time resume setup
 - Optional master cover letter upload or a clearly labeled simulated AI draft based on resume text
